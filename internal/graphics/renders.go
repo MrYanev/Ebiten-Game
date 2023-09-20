@@ -1,4 +1,4 @@
-package interal
+package internal
 
 import (
 	"github.com/hajimehoshi/ebiten"
