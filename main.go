@@ -1,14 +1,30 @@
 package main
 
 import (
-	"github.com/hajimehoshi/ebiten"
+	"log"
+
+	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 )
 
-func main() {
-	ebiten.SetWindowSize(internal.screenWidth, internal.screenHeight)
-	ebiten.SetWindowTitle("Broforce V2 on Ebiten")
-	if err := ebiten.RunGame(internal.update, internal.screenWidth, internal.screenHeight, 2, "Broforce V2 on Ebiten"); err != nil {
-		panic(err)
-	}
+type Game struct{}
 
+func (g *Game) Update() error {
+	return nil
+}
+
+func (g *Game) Draw(screen *ebiten.Image) {
+	ebitenutil.DebugPrint(screen, "Broforece V2")
+}
+
+func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
+	return 320, 240
+}
+
+func main() {
+	ebiten.SetWindowSize(640, 480)
+	ebiten.SetWindowTitle("Broforce V2")
+	if err := ebiten.RunGame(&Game{}); err != nil {
+		log.Fatal(err)
+	}
 }
