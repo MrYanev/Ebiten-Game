@@ -29,8 +29,8 @@ var (
 type Game struct{}
 
 func (g *Game) Update(screen *ebiten.Image) error {
-	if !internal.isGameStarted {
-		internal.updateStartMenu(screen)
+	if !game.isGameStarted {
+		game.updateStartMenu(screen)
 	} else {
 		//Game logic
 	}
@@ -39,8 +39,8 @@ func (g *Game) Update(screen *ebiten.Image) error {
 
 func (g *Game) Draw(screen *ebiten.Image) {
 	ebitenutil.DebugPrint(screen, "Broforece V2")
-	if !internal.isGameStarted {
-		internal.drawStartMenu(screen)
+	if !game.isGameStarted {
+		game.drawStartMenu(screen)
 	} else {
 		// Draw game elements here
 	}
@@ -54,8 +54,11 @@ func main() {
 	game := &Game{}
 
 	ebiten.SetWindowSize(1000, 650)
-	ebiten.SetWindowTitle("Broforce V2")
-	if err := ebiten.RunGame(game); err != nil {
+	ebiten.SetWindowTitle("Knight Game")
+
+	game.initializeStartMenu()
+
+	if err := ebiten.RunGame(Update); err != nil {
 		log.Fatal(err)
 	}
 }

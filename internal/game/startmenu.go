@@ -1,6 +1,11 @@
 package internal
 
 import (
+	"Ebiten-Game/assets/images"
+	"bytes"
+	"image"
+	"log"
+
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
@@ -12,11 +17,12 @@ func updateStartMenu(screen *ebiten.Image) error {
 	if ebiten.IsKeyPressed(ebiten.KeyEnter) {
 		isGameStarted = true
 	}
+	return nil
 }
 
 func drawStartMenu(screen *ebiten.Image) {
 	//Draw the start menu background
-	screen.DrawImage(startMenuImage)
+	screen.DrawImage(startMenuImage, nil)
 
 	//To draw text and other elements here
 }
@@ -27,10 +33,11 @@ func switchToGame() {
 
 func initializeStartMenu() {
 	//Load up the start menu background
-	startMenuImage, _, err := ebiten.NewImageFromFile("assets/images/", ebiten.FilterDefault)
+	img, _, err := image.Decode(bytes.NewReader(images.Grassy_Mountains.png))
 	if err != nil {
-		log.Errorf("The shit just hit the fan!")
+		log.Fatal(err)
 	}
+	startMenuImage = ebiten.NewImageFromImage(img)
 
 	//Any additional setup goes here
 }
