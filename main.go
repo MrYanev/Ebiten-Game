@@ -3,46 +3,33 @@ package main
 import (
 	"log"
 
-	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
-	"golang.org/x/image/font"
-)
-
-const (
-	screenWidth   = 640
-	screenHeight  = 480
-	tileSize      = 32
-	titleFontSize = fontSize * 1.5
-	fontSize      = 24
-	smallFontSize = fontSize / 2
-)
-
-var (
-	knightImage            *ebiten.Image
-	platformImage          *ebiten.Image
-	titleArcadeFont        font.Face
-	arcadeFont             font.Face
-	smallArcadeFont        font.Face
-	charecterX, charecterY float64 = 100, 100
+	"github.com/hajimehoshi/ebiten"
+	"github.com/hajimehoshi/ebiten/ebitenutil"
 )
 
 type Game struct{}
 
+// Create our empty vars
+var (
+	err        error
+	background *ebiten.Image
+)
+
 func (g *Game) Update(screen *ebiten.Image) error {
-	if !game.isGameStarted {
-		game.updateStartMenu(screen)
-	} else {
-		//Game logic
+	// Games logic goes here
+	if ebiten.IsDrawingSkipped() {
+		return nil
 	}
+	op := &ebiten.DrawImageOptions{}
+	op.GeoM.Translate(0, 0)
+	screen.DrawImage(background, op)
 	return nil
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
-	ebitenutil.DebugPrint(screen, "Broforece V2")
-	if !game.isGameStarted {
-		game.drawStartMenu(screen)
-	} else {
-		// Draw game elements here
+	background, _, err = ebitenutil.NewImageFromFile("assets/images/background.png", ebiten.FilterDefault)
+	if err != nil {
+		log.Fatal(err)
 	}
 }
 
@@ -50,15 +37,12 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeigh
 	return 320, 240
 }
 
+// Main loop
 func main() {
 	game := &Game{}
-
-	ebiten.SetWindowSize(1000, 650)
-	ebiten.SetWindowTitle("Knight Game")
-
-	game.initializeStartMenu()
-
-	if err := ebiten.RunGame(Update); err != nil {
+	ebiten.SetWindowSize(1200, 750)
+	ebiten.SetWindowTitle("Some Knight Game")
+	if err := ebiten.RunGame(game); err != nil {
 		log.Fatal(err)
 	}
 }
