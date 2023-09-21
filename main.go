@@ -1,8 +1,6 @@
 package main
 
 import (
-	"bytes"
-	"image"
 	"log"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -20,35 +18,32 @@ const (
 )
 
 var (
-	gopherImage     *ebiten.Image
-	tilesImage      *ebiten.Image
-	titleArcadeFont font.Face
-	arcadeFont      font.Face
-	smallArcadeFont font.Face
+	knightImage            *ebiten.Image
+	platformImage          *ebiten.Image
+	titleArcadeFont        font.Face
+	arcadeFont             font.Face
+	smallArcadeFont        font.Face
+	charecterX, charecterY float64 = 100, 100
 )
 
 type Game struct{}
 
-func inint() {
-	img, _, err := image.Decode(bytes.NewReader(images.run_png))
-	if err != nil {
-		log.Fatal(err)
+func (g *Game) Update(screen *ebiten.Image) error {
+	if !internal.isGameStarted {
+		internal.updateStartMenu(screen)
+	} else {
+		//Game logic
 	}
-	runnerImage := ebiten.NewImageFromImage(img)
-
-	img, _, err := image.Decode(bytes.NewReader(images.idle_png))
-	if err != nil {
-		log.Fatal(err)
-	}
-	idleImage := ebiten.NewImageFromImage(img)
-}
-
-func (g *Game) Update() error {
 	return nil
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
 	ebitenutil.DebugPrint(screen, "Broforece V2")
+	if !internal.isGameStarted {
+		internal.drawStartMenu(screen)
+	} else {
+		// Draw game elements here
+	}
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
