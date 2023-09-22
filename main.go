@@ -7,6 +7,12 @@ import (
 	"github.com/hajimehoshi/ebiten/ebitenutil"
 )
 
+type Player struct { //Here for testing purposes
+	image      *ebiten.Image
+	xPos, yPos float64
+	speed      float64
+}
+
 type Game struct{}
 
 const (
@@ -18,6 +24,7 @@ var (
 	background *ebiten.Image
 	enemieImg  *ebiten.Image
 	playerImg  *ebiten.Image
+	playerOne  Player
 )
 
 func (g *Game) Draw(screen *ebiten.Image) {
@@ -30,6 +37,8 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	playerOne = Player{playerImg, screenHeight / 2.0, screenWidth / 2.0, 4} //To be checked
 
 	enemieImg, _, err = ebitenutil.NewImageFromFile("assets/images/_IdleEnem.png", ebiten.FilterDefault)
 	if err != nil {
@@ -46,6 +55,11 @@ func (g *Game) Update(screen *ebiten.Image) error {
 	op := &ebiten.DrawImageOptions{}
 	op.GeoM.Translate(0, 0)
 	screen.DrawImage(background, op)
+
+	playerOp := &ebiten.DrawImageOptions{}
+	op.GeoM.Translate(0, 0)
+	screen.DrawImage(playerOne.image, playerOp) //Related to the previous
+
 	return nil
 }
 
