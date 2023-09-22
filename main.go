@@ -9,11 +9,17 @@ import (
 
 type Game struct{}
 
-// Create our empty vars
 var (
 	err        error
 	background *ebiten.Image
 )
+
+func (g *Game) Draw(screen *ebiten.Image) {
+	background, _, err = ebitenutil.NewImageFromFile("assets/images/background.png", ebiten.FilterDefault)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
 
 func (g *Game) Update(screen *ebiten.Image) error {
 	// Games logic goes here
@@ -24,13 +30,6 @@ func (g *Game) Update(screen *ebiten.Image) error {
 	op.GeoM.Translate(0, 0)
 	screen.DrawImage(background, op)
 	return nil
-}
-
-func (g *Game) Draw(screen *ebiten.Image) {
-	background, _, err = ebitenutil.NewImageFromFile("assets/images/background.png", ebiten.FilterDefault)
-	if err != nil {
-		log.Fatal(err)
-	}
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
