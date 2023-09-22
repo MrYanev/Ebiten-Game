@@ -9,9 +9,15 @@ import (
 
 type Game struct{}
 
+const (
+	screenWidth, screenHeight = 1200, 750
+)
+
 var (
 	err        error
 	background *ebiten.Image
+	enemieImg  *ebiten.Image
+	playerImg  *ebiten.Image
 )
 
 func (g *Game) Draw(screen *ebiten.Image) {
@@ -19,6 +25,17 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	playerImg, _, err = ebitenutil.NewImageFromFile("assets/images/_Idle.png", ebiten.FilterDefault)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	enemieImg, _, err = ebitenutil.NewImageFromFile("assets/images/_IdleEnem.png", ebiten.FilterDefault)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 }
 
 func (g *Game) Update(screen *ebiten.Image) error {
@@ -33,7 +50,7 @@ func (g *Game) Update(screen *ebiten.Image) error {
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
-	return 320, 240
+	return 1200, 750
 }
 
 // Main loop

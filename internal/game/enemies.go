@@ -7,5 +7,3 @@ type Enemies struct {
 	xPos, yPos float64
 	speed      float64
 }
-
-var enemieImg *ebiten.Image

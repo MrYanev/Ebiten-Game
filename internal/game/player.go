@@ -7,5 +7,3 @@ type Player struct {
 	xPos, yPos float64
 	speed      float64
 }
-
-var playerImg *ebiten.Image
