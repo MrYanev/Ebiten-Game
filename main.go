@@ -40,7 +40,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 
 	playerOne = Player{playerImg, screenHeight / 2.0, screenWidth / 2.0, 4} //To be checked
 
-	enemieImg, _, err = ebitenutil.NewImageFromFile("assets/images/_IdleEnem.png", ebiten.FilterDefault)
+	enemieImg, _, err = ebitenutil.NewImageFromFile("images/_IdleEnem.png", ebiten.FilterDefault)
 	if err != nil {
 		log.Fatal(err)
 	}
