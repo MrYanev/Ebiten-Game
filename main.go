@@ -11,7 +11,7 @@ type Game struct{}
 
 // Our game constants
 const (
-	screenWidth, screenHeight = 640, 480
+	screenWidth, screenHeight = 1152, 648
 )
 
 // Create our empty vars
@@ -76,12 +76,12 @@ func (g *Game) MovePlayer() {
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
-	return 1200, 750
+	return 1154, 650
 }
 
 func main() {
 	game := &Game{}
-	ebiten.SetWindowSize(1200, 750)
+	ebiten.SetWindowSize(screenWidth, screenHeight)
 	ebiten.SetWindowTitle("Some Knight Game")
 	if err := ebiten.RunGame(game); err != nil {
 		log.Fatal(err)
