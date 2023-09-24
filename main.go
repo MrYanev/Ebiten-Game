@@ -5,7 +5,7 @@ import (
 
 	"github.com/hajimehoshi/ebiten"
 	"github.com/hajimehoshi/ebiten/ebitenutil"
-	"github.com/hajimehoshi/ebiten/text"
+	"github.com/hajimehoshi/ebiten/v2/text"
 	"golang.org/x/image/font"
 )
 
@@ -25,7 +25,6 @@ var (
 	playerOne       player
 	arcadeFont      font.Face
 	smallArcadeFont font.Face
-	textLayout      *text.Layout
 	background      *ebiten.Image
 	knight          *ebiten.Image
 )
@@ -52,6 +51,22 @@ func init() {
 	playerOne = player{knight, screenWidth / 2.0, screenHeight / 2.0, 4}
 }
 
+func (g *Game) initializeStartMenu() {
+	//Load embeded font
+	fontData, err := truetype.Parse(fontBytes)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	//Create a font face
+	fontFace = truetype.NewFace(fontData, &truetype.Options{
+		Size: 24,
+	})
+
+	// Measure the text size
+	textWidth, textHeight = text.MeasureString("Press Enter to start", fontFace)
+}
+
 func (g *Game) drawStartMenu(screen *ebiten.Image) {
 	screen.DrawImage(background, nil)
 
@@ -67,7 +82,7 @@ func (g *Game) drawStartMenu(screen *ebiten.Image) {
 	}
 }
 
-func UpdateStartMenu(screen *ebiten.Image) {
+func (g *Game) UpdateStartMenu(screen *ebiten.Image) {
 	if ebiten.IsKeyPressed(ebiten.KeyEnter) {
 		isGameStarted = true
 	}
