@@ -5,6 +5,7 @@ import (
 
 	"github.com/hajimehoshi/ebiten"
 	"github.com/hajimehoshi/ebiten/ebitenutil"
+	"golang.org/x/image/font"
 )
 
 type Game struct{}
@@ -12,14 +13,19 @@ type Game struct{}
 // Our game constants
 const (
 	screenWidth, screenHeight = 1152, 648
+	fontSize                  = 24
+	smalleFontSize            = fontSize / 2
 )
 
 // Create our empty vars
 var (
-	err        error
-	background *ebiten.Image
-	knight     *ebiten.Image
-	playerOne  player
+	err             error
+	isGameStarted   bool
+	playerOne       player
+	arcadeFont      font.Face
+	smallArcadeFont font.Face
+	background      *ebiten.Image
+	knight          *ebiten.Image
 )
 
 // Create the player class
@@ -42,6 +48,16 @@ func init() {
 	}
 
 	playerOne = player{knight, screenWidth / 2.0, screenHeight / 2.0, 4}
+}
+
+func (g *Game) drawStartMenu(screen *ebiten.Image) {
+	screen.DrawImage(background, nil)
+
+	if !isGameStarted {
+		//Draw the message
+		//text := "Press ENTER to start"
+		//textWidht, textHeight := ebitenutil.
+	}
 }
 
 func (g *Game) Update(screen *ebiten.Image) error {
