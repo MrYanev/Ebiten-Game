@@ -4,12 +4,10 @@ import (
 	"log"
 
 	"github.com/hajimehoshi/ebiten"
-	"github.com/hajimehoshi/ebiten/ebitenutil"
-	"github.com/hajimehoshi/ebiten/v2/text"
+
+	//"github.com/hajimehoshi/ebiten/v2/text"
 	"golang.org/x/image/font"
 )
-
-type Game struct{}
 
 // Our game constants
 const (
@@ -29,6 +27,7 @@ var (
 	knight          *ebiten.Image
 )
 
+/*
 // Create the player class
 type player struct {
 	image      *ebiten.Image
@@ -37,72 +36,44 @@ type player struct {
 }
 
 // Run this code once at startup
-func init() {
-	background, _, err = ebitenutil.NewImageFromFile("D:\\Code-projects\\Ebiten-Game\\assets\\images\\background.png", ebiten.FilterDefault)
-	if err != nil {
-		log.Fatal(err)
+
+	func (g *Game) initializeStartMenu() {
+		//Load embeded font
+		fontData, err := truetype.Parse(fontBytes)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		//Create a font face
+		fontFace = truetype.NewFace(fontData, &truetype.Options{
+			Size: 24,
+		})
+
+		// Measure the text size
+		textWidth, textHeight = text.MeasureString("Press Enter to start", fontFace)
 	}
 
-	knight, _, err = ebitenutil.NewImageFromFile("D:\\Code-projects\\Ebiten-Game\\assets\\images\\_Idle.png", ebiten.FilterDefault)
-	if err != nil {
-		log.Fatal(err)
+	func (g *Game) drawStartMenu(screen *ebiten.Image) {
+		screen.DrawImage(background, nil)
+
+		if !isGameStarted {
+			//Draw the message
+			text := "Press ENTER to start"
+			textWidht, textHeight := text.BoundString(textLayout, text) //To be fixed
+
+			textX := (screenWidth - textWidht) / 2
+			textY := (screenHeight - textHeight) / 2
+			text.Draw(screen, text, arcadeFont, textX, textY, textColor)
+
+		}
 	}
 
-	playerOne = player{knight, screenWidth / 2.0, screenHeight / 2.0, 4}
-}
-
-func (g *Game) initializeStartMenu() {
-	//Load embeded font
-	fontData, err := truetype.Parse(fontBytes)
-	if err != nil {
-		log.Fatal(err)
+	func (g *Game) UpdateStartMenu(screen *ebiten.Image) {
+		if ebiten.IsKeyPressed(ebiten.KeyEnter) {
+			isGameStarted = true
+		}
 	}
-
-	//Create a font face
-	fontFace = truetype.NewFace(fontData, &truetype.Options{
-		Size: 24,
-	})
-
-	// Measure the text size
-	textWidth, textHeight = text.MeasureString("Press Enter to start", fontFace)
-}
-
-func (g *Game) drawStartMenu(screen *ebiten.Image) {
-	screen.DrawImage(background, nil)
-
-	if !isGameStarted {
-		//Draw the message
-		text := "Press ENTER to start"
-		textWidht, textHeight := text.BoundString(textLayout, text) //To be fixed
-
-		textX := (screenWidth - textWidht) / 2
-		textY := (screenHeight - textHeight) / 2
-		text.Draw(screen, text, arcadeFont, textX, textY, textColor)
-
-	}
-}
-
-func (g *Game) UpdateStartMenu(screen *ebiten.Image) {
-	if ebiten.IsKeyPressed(ebiten.KeyEnter) {
-		isGameStarted = true
-	}
-}
-
-func (g *Game) Update(screen *ebiten.Image) error {
-	g.MovePlayer()
-	if ebiten.IsDrawingSkipped() {
-		return nil
-	}
-	op := &ebiten.DrawImageOptions{}
-	op.GeoM.Translate(0, 0)
-	screen.DrawImage(background, op)
-
-	playerOp := &ebiten.DrawImageOptions{}
-	playerOp.GeoM.Translate(playerOne.xPos, playerOne.yPos)
-	screen.DrawImage(playerOne.image, playerOp)
-
-	return nil
-}
+*/
 
 func (g *Game) MovePlayer() {
 	if ebiten.IsKeyPressed(ebiten.KeyUp) {
@@ -117,10 +88,6 @@ func (g *Game) MovePlayer() {
 	if ebiten.IsKeyPressed(ebiten.KeyRight) {
 		playerOne.xPos += playerOne.speed
 	}
-}
-
-func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
-	return 1154, 650
 }
 
 func main() {
