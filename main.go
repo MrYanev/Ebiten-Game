@@ -3,28 +3,9 @@ package main
 import (
 	"log"
 
+	"ebiten-game/internal/game"
+
 	"github.com/hajimehoshi/ebiten"
-
-	//"github.com/hajimehoshi/ebiten/v2/text"
-	"golang.org/x/image/font"
-)
-
-// Our game constants
-const (
-	screenWidth, screenHeight = 1152, 648
-	fontSize                  = 24
-	smalleFontSize            = fontSize / 2
-)
-
-// Create our empty vars
-var (
-	err             error
-	isGameStarted   bool
-	playerOne       player
-	arcadeFont      font.Face
-	smallArcadeFont font.Face
-	background      *ebiten.Image
-	knight          *ebiten.Image
 )
 
 /*
@@ -73,26 +54,27 @@ type player struct {
 			isGameStarted = true
 		}
 	}
+
+	func (g *Game) MovePlayer() {
+		if ebiten.IsKeyPressed(ebiten.KeyUp) {
+			playerOne.yPos -= playerOne.speed
+		}
+		if ebiten.IsKeyPressed(ebiten.KeyDown) {
+			playerOne.yPos += playerOne.speed
+		}
+		if ebiten.IsKeyPressed(ebiten.KeyLeft) {
+			playerOne.xPos -= playerOne.speed
+		}
+		if ebiten.IsKeyPressed(ebiten.KeyRight) {
+			playerOne.xPos += playerOne.speed
+		}
+	}
+
 */
 
-func (g *Game) MovePlayer() {
-	if ebiten.IsKeyPressed(ebiten.KeyUp) {
-		playerOne.yPos -= playerOne.speed
-	}
-	if ebiten.IsKeyPressed(ebiten.KeyDown) {
-		playerOne.yPos += playerOne.speed
-	}
-	if ebiten.IsKeyPressed(ebiten.KeyLeft) {
-		playerOne.xPos -= playerOne.speed
-	}
-	if ebiten.IsKeyPressed(ebiten.KeyRight) {
-		playerOne.xPos += playerOne.speed
-	}
-}
-
 func main() {
-	game := &Game{}
-	ebiten.SetWindowSize(screenWidth, screenHeight)
+	game := &game.Game{}
+	ebiten.SetWindowSize(game.ScreenWidth, game.screenHeight)
 	ebiten.SetWindowTitle("Some Knight Game")
 	if err := ebiten.RunGame(game); err != nil {
 		log.Fatal(err)
