@@ -2,11 +2,11 @@ package game
 
 import (
 	"bytes"
+	gameImages "ebiten-game/assets/images"
 	"image"
 	"image/color"
+	_ "image/png"
 	"log"
-
-	gameImages "ebiten-game/assets/images"
 
 	"github.com/hajimehoshi/ebiten/v2"
 )

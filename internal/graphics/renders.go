@@ -1,6 +1,8 @@
 package graphics
 
 import (
+	"ebiten-game/internal/game"
+	"image/color"
 	"log"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -9,13 +11,9 @@ import (
 
 var (
 	imageGameBG   *ebiten.Image
-	imageWindows  = ebiten.NewImage(ScreenWidth, ScreenHeight)
-	imageGameOver = ebiten.NewImage(ScreenWidth, ScreenHeight)
+	imageWindows  = ebiten.NewImage(game.ScreenWidth, game.ScreenHeight)
+	imageGameOver = ebiten.NewImage(game.ScreenWidth, game.ScreenHeight)
 )
-
-func textBoxWidth() int {
-	x, y = nextWindow
-}
 
 func init() {
 
@@ -26,4 +24,13 @@ func init() {
 	}
 
 	playerOne = player{knight, screenWidth / 2.0, screenHeight / 2.0, 4}
+
+	//Gameover screen
+	imageGameOver.Fill(color.NRGBA{0x00, 0x00, 0x00, 0x80})
+	y := (game.ScreenHeight - knightHeight) / 2
+	drawTextWithShadowCenter(imageGameOver, "GAME OVER\n\nPRESS ENTER", 0, y, 1, color.White, game.ScreenWidth)
+}
+
+type GameScene struct {
+	gameover bool
 }
