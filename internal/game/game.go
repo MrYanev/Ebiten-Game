@@ -6,7 +6,7 @@ import (
 
 type Game struct {
 	sceneManager *SceneManager
-	input        Input
+	//input        Input
 }
 
 const (
@@ -16,17 +16,15 @@ const (
 
 func (g *Game) Update(screen *ebiten.Image) error {
 	g.MovePlayer()
-	if ebiten.IsDrawingSkipped() {
-		return nil
+	if g.sceneManager == nil {
+		g.sceneManager = &SceneManager{}
+		g.sceneManager.GoTo(&TitleScreen{})
 	}
-	op := &ebiten.DrawImageOptions{}
-	op.GeoM.Translate(0, 0)
-	screen.DrawImage(background, op)
 
-	playerOp := &ebiten.DrawImageOptions{}
-	playerOp.GeoM.Translate(playerOne.xPos, playerOne.yPos)
-	screen.DrawImage(playerOne.image, playerOp)
-
+	/*g.Input.Update() Working around using gamepad input
+	if err := g.sceneManager.Update(&g.input); err != nil {
+		return err
+	}*/
 	return nil
 }
 
@@ -34,6 +32,6 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeigh
 	return 1154, 650
 }
 
-func (g *Game) Draw(scanner *ebiten.Image) {
-	g.screenManager.Draw(screen)
+func (g *Game) Draw(screen *ebiten.Image) {
+	g.sceneManager.Draw(screen)
 }
