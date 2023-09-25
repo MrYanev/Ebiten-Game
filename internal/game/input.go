@@ -2,6 +2,9 @@ package game
 
 import "github.com/hajimehoshi/ebiten/v2"
 
+type Input struct {
+}
+
 //PlayerOne to be changed to the correct player var
 func (g *Game) MovePlayer() {
 	if ebiten.IsKeyPressed(ebiten.KeyUp) {
