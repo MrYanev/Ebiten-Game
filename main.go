@@ -73,7 +73,7 @@ type player struct {
 */
 
 func main() {
-	theGame = &game.Game{}
+	theGame := &game.Game{}
 	ebiten.SetWindowSize(game.ScreenWidth, game.ScreenHeight)
 	ebiten.SetWindowTitle("Some Knight Game")
 	if err := ebiten.RunGame(theGame); err != nil {
